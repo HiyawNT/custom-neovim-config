@@ -26,11 +26,23 @@ vim.api.nvim_create_autocmd('ModeChanged', {
 })
 map('x', 'p', '"_dP', opts)
 map('x', 'P', '"_dP', opts)
+-- ──────────────────────
+-- Uppercase S / C / D → do NOT yank (black-hole register)
+-- ──────────────────────
+map('n', 'S', '"_S', { desc = 'S  (change line) → no yank' })
+map('n', 'C', '"_C', { desc = 'C  (change to EOL) → no yank' })
+map('n', 'D', '"_D', { desc = 'D  (delete to EOL) → no yank' })
 
+-- Optional: also cover the very rare visual-mode uppercase versions
+map('x', 'S', '"_S', { desc = 'Visual S → no yank' })
+map('x', 'C', '"_C', { desc = 'Visual C → no yank' })
+map('x', 'D', '"_D', { desc = 'Visual D → no yank' })
+--
 -- ──────────────────────
 -- 3. Pro save & quit
 -- ──────────────────────
 map('n', '<leader>w', ':w<CR>', { desc = 'Save buffer' })
+
 map({ 'n', 'i' }, '<C-s>', function()
   local saved = 0
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
@@ -53,6 +65,13 @@ map('n', '<leader>qq', function()
   end, vim.api.nvim_list_bufs())
   vim.cmd(#dirty > 0 and 'qa!' or 'qa')
 end, { desc = 'Quit all (force if dirty)' })
+
+map('n', '<leader>wq', ':wq<CR>', { desc = 'Write and quit window' })
+map('n', '<leader>WQ', ':wq!<CR>', { desc = 'Write and quit window (force)' })
+map('n', '<leader>wa', function()
+  vim.cmd 'silent! wall'
+  vim.cmd 'qa'
+end, { desc = 'Write all and quit Neovim' })
 
 -- ──────────────────────
 -- 4. Terminal shortcuts
