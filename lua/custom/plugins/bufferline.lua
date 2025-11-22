@@ -1,7 +1,7 @@
 return {
   'akinsho/bufferline.nvim',
   version = '*',
-  dependencies = 'nvim-tree/nvim-web-devicons',
+
   event = 'VeryLazy',
   keys = {
     { '<Tab>', '<Cmd>BufferLineCycleNext<CR>', desc = 'Next buffer' },
@@ -19,6 +19,8 @@ return {
           text_align = 'left',
         },
       },
+      show_buffer_icons = true,
+      color_icons = true,
     },
   },
 }
