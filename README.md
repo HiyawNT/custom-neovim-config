@@ -11,16 +11,29 @@ I maintain this fork as **my daily driver** and gradually add the tools, keybind
 ## What's different from stock kickstart.nvim?
 
 - Mason packages I use daily recommended if you are a backend/Devops (dockerls, docker-compose-language-service, eslint_d, prettierd, etc.)
-- `nvim-autopairs` explicitly enabled (I hate manually-closing brackets/quotes)
+- `nvim-autopairs` - explicitly enabled (I hate manually-closing brackets/quotes)
 - Minor personal keybindings and options
 - Multiple Custom plugins like a File Explorer (like vscode), 
-- `auto-save` for auto saving file without explicitly typing `<leader>w` it saves buffer when switching from Insert mode to Normal mode. 
-- `toggle-term` for floating Terminal(or horizontal) like Vscode but Better :).
+- `auto-save` - for auto saving file without explicitly typing `<leader>w` it saves buffer when switching from Insert mode to Normal mode. 
+- `toggle-term` - for floating Terminal(or horizontal) like Vscode but Better :).
 - `bufferline` shows all your open buffers like tabs  with names, icons, close buttons, modifications indicator, etc.
-- `catppuccin` Best Theme ever fight me.
-- `Telescope` for File searching and navigation
-- `markdown-preview` for better Github like MD file preview.
+- `catppuccin` -  Best Theme ever fight me.
+- `Telescope` - for File searching and navigation
+- `markdown-preview` - for better Github like MD file preview.
+- `code-companion` (optional) -  for Copilot features (current configuration is set to Gemini) make sure to add your gemini api key to `custom/plugins/code-companion.lua`  directly inisde the
+  ```lua 
+
+            return require('codecompanion.adapters').extend('gemini', {
+              env = { api_key = os.getenv 'GEMINI_API_KEY' }, -- HERE (export it as Environment or just paste it here)
+              schema = {
+                model = { default = 'gemini-2.0-flash-exp' },
+              },
+            })
+          end,
+        },
+  ```
 - Everything else is intentionally kept as close as possible to the original kickstart design
+
 
 ## Installation
 

@@ -1,21 +1,32 @@
+-- Autocmd group for auto-save notifications
+local group = vim.api.nvim_create_augroup('autosave', {})
+
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'AutoSaveWritePost',
+  group = group,
+  callback = function(opts)
+    if opts.data.saved_buffer ~= nil then
+      local message = 'AutoSave: saved at ' .. vim.fn.strftime '%H:%M:%S'
+      vim.notify(message, vim.log.levels.INFO)
+      -- Optional: Dim the message color and auto-clean it after 1250ms (mimicking your old config)
+      vim.cmd 'hi! link NotifyLog Normal' -- Adjust highlighting for dimming if needed
+      vim.defer_fn(function()
+        vim.cmd 'redraw'
+      end, 1250)
+    end
+  end,
+})
+
 return {
   {
     'okuuva/auto-save.nvim',
-    cmd = 'ASToggle', -- optional for lazy loading on command
-    event = { 'InsertLeave', 'TextChanged' }, -- optional for lazy loading on trigger events
+    cmd = 'ASToggle',
+    event = { 'InsertLeave', 'TextChanged' },
     opts = {
       --
       -- All of these are just the defaults
       --
       enabled = true, -- start auto-save when the plugin is loaded (i.e. when your package manager loads it)
-      execution_message = {
-        enabled = true,
-        message = function() -- message to print on save
-          return ('AutoSave: saved at ' .. vim.fn.strftime '%H:%M:%S')
-        end,
-        dim = 0.18, -- dim the color of `message`
-        cleaning_interval = 1250, -- (milliseconds) automatically clean MsgArea after displaying `message`. See :h MsgArea
-      },
       trigger_events = { -- See :h events
         immediate_save = { 'BufLeave', 'FocusLost' }, -- vim events that trigger an immediate save
         defer_save = { 'InsertLeave', 'TextChanged' }, -- vim events that trigger a deferred save (saves after `debounce_delay`)
@@ -28,13 +39,10 @@ return {
       condition = nil,
       write_all_buffers = false, -- write all buffers when the current one meets `condition`
       -- Do not execute autocmds when saving
-      -- This is what fixed the issues with undo/redo that I had
-      -- https://github.com/okuuva/auto-save.n...
       noautocmd = false,
-      lockmarks = false, -- lock marks when saving, see `:h lockmarks` for more details
+      lockmarks = false,
       -- delay after which a pending save is executed (default 1000)
       debounce_delay = 1000,
-      -- log debug messages to 'auto-save.log' file in neovim cache directory, set to `true` to enable
       debug = false,
     },
   },
