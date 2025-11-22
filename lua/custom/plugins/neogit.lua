@@ -9,6 +9,12 @@ return {
     kind = 'auto', -- Uses floating windows or splits.
   },
   keys = {
-    { '<leader>gg', '<cmd>Neogit<cr>', desc = 'Open Neogit' },
+    { '<leader>gg', '<cmd>Neogit kind=tab<cr>', desc = 'Neogit status' },
+    { '<leader>gc', '<cmd>Neogit commit<cr>', desc = 'Commit popup' },
+    { '<leader>gp', '<cmd>Neogit push<cr>', desc = 'Push' },
+    { '<leader>gP', '<cmd>Git push --force-with-lease<cr>', desc = 'Force push (safe)' },
+    { '<leader>gl', '<cmd>Neogit log<cr>', desc = 'Log graph' },
+    { '<leader>gb', '<cmd>Neogit branch<cr>', desc = 'Branch popup' },
+    { '<leader>gd', '<cmd>DiffviewOpen<cr>', desc = 'Diffview all changes' },
   },
 }
