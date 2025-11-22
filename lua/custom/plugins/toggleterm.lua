@@ -5,7 +5,7 @@ return {
   event = 'VeryLazy',
   config = function()
     require('toggleterm').setup {
-      size = 20,
+      size = 15,
       open_mapping = [[<c-t>]], -- CHANGE: Use <C-t> instead (reliable)
       hide_numbers = true,
       shade_terminals = true,
