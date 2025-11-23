@@ -17,21 +17,9 @@ I maintain this fork as **my daily driver** and gradually add the tools, keybind
 - `auto-save` - for auto saving file without explicitly typing `<leader>w` it saves buffer when switching from Insert mode to Normal mode. 
 - `toggle-term` - for floating Terminal(or horizontal) like Vscode but Better :).
 - `bufferline` shows all your open buffers like tabs  with names, icons, close buttons, modifications indicator, etc.
-- `catppuccin` -  Best Theme ever fight me.
 - `Telescope` - for File searching and navigation
 - `markdown-preview` - for better Github like MD file preview.
-- `code-companion` (optional) -  for Copilot features (current configuration is set to Gemini) make sure to add your gemini api key to `custom/plugins/code-companion.lua`  directly inisde the
-  ```lua 
-
-            return require('codecompanion.adapters').extend('gemini', {
-              env = { api_key = os.getenv 'GEMINI_API_KEY' }, -- HERE (export it as Environment or just paste it here)
-              schema = {
-                model = { default = 'gemini-2.0-flash-exp' },
-              },
-            })
-          end,
-        },
-  ```
+- `avante` (optional) -  for AI Copilot  features (current configuration is set to Gemini) make sure to add your gemini api key to environment `export GEMINI_API_KEY="your key"` to your   `~/.bashrc` or  `~/.zshrc` (for zsh terminal) 
 - Everything else is intentionally kept as close as possible to the original kickstart design
 
 
@@ -49,6 +37,13 @@ git clone https://github.com/HiyawNT/custom-neovim-config.git "%localappdata%\nv
 ```
 
 Then just run `nvim` — Lazy will install everything on first launch.
+
+## Theme
+
+- `catppuccin` -  Best Theme ever fight me.
+- `lunarhaze-theme` - a clean, minimalist, NvChad-inspired lualine theme made for people who want maximum beauty with zero clutter.
+Elegant rounded powerline separators, perfectly balanced sections, single global statusline, and tasteful highlights that play nicely with catppuccin, tokyonight, gruvbox, or any dark/light colorscheme.
+No noisy icons, no wasted space — just your mode, branch, filename, diagnostics, and location, arranged exactly like the famous NvChad statusline everyone screenshots :) .
 
 ## Custom Keybindings
 

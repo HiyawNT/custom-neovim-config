@@ -1,0 +1,65 @@
+return {
+  'yetone/avante.nvim',
+  event = 'VeryLazy',
+  version = false,
+  build = 'make',
+  opts = {
+    provider = 'gemini',
+    auto_suggestions_provider = 'gemini',
+
+    providers = {
+      gemini = {
+        endpoint = 'https://generativelanguage.googleapis.com/v1beta/models',
+        model = 'gemini-2.5-flash',
+        api_key_name = 'GEMINI_API_KEY',
+        timeout = 30000,
+        temperature = 0.7,
+        max_tokens = 4096,
+      },
+    },
+
+    behaviour = {
+      auto_suggestions = true,
+      auto_set_highlight_group = true,
+      auto_set_keymaps = true,
+      auto_apply_diff_after_generation = true,
+      support_paste_from_clipboard = true,
+      disable_edit_by_default = false, -- ← makes it always editable
+      open_edit_win_on_start = true,
+    },
+
+    windows = {
+      position = 'right',
+      width = 40,
+    },
+
+    mappings = {
+      ask = '<leader>aa',
+      edit = '<leader>ae',
+      suggest = '<leader>as',
+    },
+  },
+
+  keys = {
+    { '<leader>aa', '<cmd>AvanteAsk<cr>', desc = 'Avante: Ask' },
+    { '<leader>ae', '<cmd>AvanteEdit<cr>', desc = 'Avante: Edit block' },
+    { '<leader>as', '<cmd>AvanteSuggest<cr>', desc = 'Avante: Suggest' },
+  },
+
+  dependencies = {
+    'stevearc/dressing.nvim',
+    'nvim-lua/plenary.nvim',
+    'MunifTanjim/nui.nvim',
+
+    {
+      'HakonHarnes/img-clip.nvim',
+      event = 'VeryLazy', -- ← this is required here
+      opts = {
+        default = {
+          embed_image_as_base64 = false,
+          prompt_for_filename = false, -- I like this too
+        },
+      },
+    },
+  },
+}
