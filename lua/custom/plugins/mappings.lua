@@ -90,5 +90,49 @@ map('n', '<leader>y', 'ggVG', { desc = 'Select whole file' })
 -- 6. <leader>d → delete everything without yanking
 -- ──────────────────────
 map('n', '<leader>d', 'gg"_dG', { desc = 'Delete whole file (no yank)' })
+-- ──────────────────────
+-- Close current buffer (smart, keeps window)
+-- ──────────────────────
+-- <leader>c  → close buffer, keep window/layout
+-- <leader>bd → same thing (bd = buffer delete, very common)
+-- <leader>bc → force close even if modified
+map('n', '<leader>c', function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local modified = vim.api.nvim_buf_get_option(bufnr, 'modified')
 
+  if modified then
+    local choice = vim.fn.confirm('Buffer has unsaved changes. Save before closing?', '&Yes\n&No\n&Cancel', 3)
+    if choice == 1 then -- Yes
+      vim.cmd 'write'
+    elseif choice == 3 then -- Cancel
+      return
+    end
+    -- If No or after save, proceed to delete
+  end
+
+  -- Try to switch to another buffer first to avoid errors
+  local bufs = vim.fn.getbufinfo { buflisted = 1 }
+  local other_bufs = vim.tbl_filter(function(b)
+    return b.bufnr ~= bufnr
+  end, bufs)
+
+  if #other_bufs > 0 then
+    vim.cmd 'bnext'
+  else
+    vim.cmd 'enew' -- no other listed buffers → open empty one
+  end
+
+  -- Now safely delete the original buffer
+  vim.cmd('silent! bdelete! ' .. bufnr)
+  print 'Buffer closed'
+end, { desc = 'Close current buffer (smart)' })
+
+-- Simple aliases
+map('n', '<leader>bd', '<leader>c', { desc = 'Close buffer (bd alias)' })
+
+-- Force close even if modified (no questions asked)
+map('n', '<leader>bc', function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  vim.cmd('bdelete! ' .. bufnr)
+end, { desc = 'Force close buffer (no save prompt)' })
 return {}
