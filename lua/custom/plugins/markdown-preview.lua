@@ -1,11 +1,9 @@
 return {
   'iamcco/markdown-preview.nvim',
+  cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
   build = 'cd app && npm install', -- one-time only
-  ft = 'markdown',
-  config = function()
-    vim.g.mkdp_auto_start = 0 -- don't open automatically
-    vim.g.mkdp_auto_close = 1
-    vim.g.mkdp_refresh_slow = 0
-    vim.g.mkdp_theme = 'dark' -- or "light"
+  init = function()
+    vim.g.mkdp_filetypes = { 'markdown' }
   end,
+  ft = { 'markdown' },
 }
