@@ -145,4 +145,29 @@ end, { desc = 'Force close buffer (no save prompt)' })
 -- Visual mode - Indent/Outdent (keeps selection with gv)
 map('v', '<Tab>', '>gv', opts)
 map('v', '<S-Tab>', '<gv', opts)
+
+-- ──────────────────────
+-- Window / Split Management
+-- ──────────────────────
+
+-- Create splits
+map('n', '<leader>v', '<C-w>v', { desc = 'Split window vertically' })
+map('n', '<leader>sh', '<C-w>s', { desc = 'Split window horizontally' })
+
+-- Close windows
+map('n', '<leader>sc', '<C-w>c', { desc = 'Close current window' })
+map('n', '<leader>so', '<C-w>o', { desc = 'Close all other windows' })
+
+-- Navigate splits (easier than Ctrl+w hjkl)
+map('n', '<C-h>', '<C-w>h', opts)
+map('n', '<C-j>', '<C-w>j', opts)
+map('n', '<C-k>', '<C-w>k', opts)
+map('n', '<C-l>', '<C-w>l', opts)
+
+-- Resize splits
+map('n', '<C-Up>', '<C-w>+', opts)
+map('n', '<C-Down>', '<C-w>-', opts)
+map('n', '<C-Left>', '<C-w><', opts)
+map('n', '<C-Right>', '<C-w>>', opts)
+
 return {}
