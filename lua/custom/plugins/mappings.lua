@@ -135,4 +135,14 @@ map('n', '<leader>bc', function()
   local bufnr = vim.api.nvim_get_current_buf()
   vim.cmd('bdelete! ' .. bufnr)
 end, { desc = 'Force close buffer (no save prompt)' })
+
+-- ──────────────────────
+-- Tab / Shift-Tab behavior
+-- Visual mode: Indent / Outdent + reselect
+-- Normal mode: Next / Previous tab
+-- ──────────────────────
+
+-- Visual mode - Indent/Outdent (keeps selection with gv)
+map('v', '<Tab>', '>gv', opts)
+map('v', '<S-Tab>', '<gv', opts)
 return {}
