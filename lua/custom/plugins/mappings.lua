@@ -17,15 +17,9 @@ map('i', 'jk', '<Esc>', { desc = 'Exit insert mode with jk' })
 -- ──────────────────────
 -- 2. Paste WITHOUT yanking replaced text
 -- ──────────────────────
-vim.api.nvim_create_autocmd('ModeChanged', {
-  pattern = '*:*',
-  callback = function()
-    map('x', 'p', '"_dP', opts)
-    map('x', 'P', '"_dP', opts)
-  end,
-})
-map('x', 'p', '"_dP', opts)
-map('x', 'P', '"_dP', opts)
+
+map('x', 'p', '"_dP', { noremap = true, silent = true, desc = 'Paste without yanking replaced text' })
+map('x', 'P', '"_dP', { noremap = true, silent = true, desc = 'Paste before without yanking replaced text' })
 -- ──────────────────────
 -- Uppercase S / C / D → do NOT yank (black-hole register)
 -- ──────────────────────
